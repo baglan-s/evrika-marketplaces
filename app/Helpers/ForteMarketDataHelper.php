@@ -3,6 +3,7 @@
 
 namespace App\Helpers;
 use App\Interfaces\CreatioDataAdapter;
+use App\Models\PickupPoint;
 
 
 class ForteMarketDataHelper implements CreatioDataAdapter
@@ -27,8 +28,7 @@ class ForteMarketDataHelper implements CreatioDataAdapter
                 'deliveryBuilding' => $this->getDeliveryInfo($data)['delivery_building'] ?? '',
                 'deliveryFlatNumber' => $this->getDeliveryInfo($data)['delivery_flat_number'] ?? 0,
                 'pickupPointName' => $this->getPickupPointName($data),
-                'pickupPointCode' => '1113e228-c439-11eb-80cc-bc97e145c062',
-//                'pickupPointCode' => $data['items'][0]['pickup_point'] ?? '',
+                'pickupPointCode' => $this->getPickupPointCode($data['items'][0]['pickup_point'] ?? '') ?? '',
                 'is_preorder' => 0,
                 'payment_type' => '',
                 'client' => [
@@ -122,5 +122,14 @@ class ForteMarketDataHelper implements CreatioDataAdapter
         }
 
         return $products;
+    }
+
+    public function getPickupPointCode(string $market_code)
+    {
+        if ($pickupPoint = PickupPoint::where('market_code', $market_code)->first()) {
+            return $pickupPoint->guid;
+        }
+
+        return null;
     }
 }

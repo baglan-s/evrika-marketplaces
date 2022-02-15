@@ -21,6 +21,7 @@ class TestController extends Controller
                 'size' => 3,
                 'scope' => 'fortemarket',
                 'order_status' => ['pending_approve', 'filled_not_approved'],
+//                'order_status' => ['delivered'],
                 'city_id' => '',
                 'sort' => 'updated_on_DESC',
             ]);

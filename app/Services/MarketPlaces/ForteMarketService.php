@@ -61,4 +61,28 @@ class ForteMarketService implements MarketService
 
         return [];
     }
+
+    public function changeStatus(string $order_id, string $status) : bool
+    {
+        try {
+            $response = Http::withHeaders($this->request_helper->getHeaders())
+                ->post($this->request_helper->getConfig()['endpoint'] . "/$order_id/set-status", [
+                    'status' => $status,
+                    'scope' => 'fortemarket'
+                ]);
+
+            if (!$response->ok()) {
+                ForteMarketDataLogger::write($response);
+                return false;
+            }
+
+            ForteMarketDataLogger::write($response->body());
+            return true;
+
+        } catch (Exception $e) {
+            ErrorLogger::write($e);
+        }
+
+        return false;
+    }
 }

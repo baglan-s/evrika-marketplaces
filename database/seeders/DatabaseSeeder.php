@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\ForteMarketOrderStatusSeeder;
 use Database\Seeders\OrderStatusSeeder;
+use Database\Seeders\PickupPointSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ForteMarketOrderStatusSeeder::class,
             OrderStatusSeeder::class,
+            PickupPointSeeder::class,
         ]);
     }
 }
