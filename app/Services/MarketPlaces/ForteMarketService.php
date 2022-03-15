@@ -71,12 +71,14 @@ class ForteMarketService implements MarketService
                     'scope' => 'fortemarket'
                 ]);
 
+            ForteMarketDataLogger::logInfo(compact('order_id', 'status'));
+
             if (!$response->ok()) {
                 ForteMarketDataLogger::write($response);
                 return false;
             }
 
-            ForteMarketDataLogger::write($response->body());
+            ForteMarketDataLogger::write($response);
             return true;
 
         } catch (Exception $e) {

@@ -25,4 +25,9 @@ class ForteMarketDataLogger implements DataLogger
 
         Log::channel(self::$channel)->info($log);
     }
+
+    public static function logInfo($data = [])
+    {
+        Log::channel(self::$channel)->info($data);
+    }
 }
