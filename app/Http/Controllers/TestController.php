@@ -18,10 +18,9 @@ class TestController extends Controller
         if ($creatio_service->authorize()) {
             $forte_market_orders = $forte_market_service->getOrders([
                 'from' => 0,
-                'size' => 3,
+                'size' => 15,
                 'scope' => 'fortemarket',
                 'order_status' => ['pending_approve', 'filled_not_approved'],
-//                'order_status' => ['delivered'],
                 'city_id' => '',
                 'sort' => 'updated_on_DESC',
             ]);

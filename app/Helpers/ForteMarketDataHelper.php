@@ -58,7 +58,7 @@ class ForteMarketDataHelper implements CreatioDataAdapter
                 ],
                 'marketplace' => [
                     'market_name' => 'fortemarket',
-                    'market_delivery_mode' => isset($data['delivery_types']) && $data['delivery_types'] === 'dhl' ? 'dhl' : 'fortemarket',
+                    'market_delivery_mode' => isset($data['delivery_types']) && $data['delivery_types'] === 'dhl' ? 'dhl' : 'evrika',
                 ],
                 'promocode_name' => '',
                 'order_status' => 1,
