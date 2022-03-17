@@ -45,17 +45,7 @@ class ForteMarketDataHelper implements CreatioDataAdapter
                     'product_article' => ''
                 ],
                 'goods' => $this->getOrderProducts($data),
-                'credit' => [
-                    'uuid' => '',
-                    'credit_number' => '',
-                    'credit_cod' => '',
-                    'period' => '',
-                    'credit_status' => '',
-                    'quantum' => '',
-                    'partner' => '',
-                    'contract_date' => '',
-                    'point_sale' => '',
-                ],
+                'credit' => $this->getCreditInfo($data),
                 'marketplace' => [
                     'market_name' => 'fortemarket',
                     'market_delivery_mode' => isset($data['delivery_types']) && $data['delivery_types'] === 'dhl' ? 'dhl' : 'evrika',
@@ -131,5 +121,51 @@ class ForteMarketDataHelper implements CreatioDataAdapter
         }
 
         return null;
+    }
+
+    public function getCreditInfo(array $data) : array
+    {
+        if (isset($data['pay_types']) && $data['pay_types'] === 'FORTE_EXPRESS') {
+            return [
+                'uuid' => isset($data['items'][0]) && isset($data['items'][0]['promotions']) && isset($data['items'][0]['promotions'][0]) ? $data['items'][0]['promotions'][0]['id'] : '',
+                'credit_number' => '',
+                'credit_cod' => $data['pay_types_code'] ?? '',
+                'period' => $this->getCreditPeriod($data),
+                'credit_status' => '',
+                'quantum' => $data['common_price'] ?? '',
+                'partner' => 'fortebank',
+                'contract_date' => $data['paidDate'] ?? '',
+                'point_sale' => $this->getPickupPointName($data),
+            ];
+        }
+
+        return [
+            'uuid' => '',
+            'credit_number' => '',
+            'credit_cod' => '',
+            'period' => '',
+            'credit_status' => '',
+            'quantum' => '',
+            'partner' => '',
+            'contract_date' => '',
+            'point_sale' => '',
+        ];
+    }
+
+    private function getCreditPeriod(array $data)
+    {
+        $periods = [
+            'FORTE_EXPRESS_0_4' => 4,
+            'FORTE_EXPRESS_0_6' => 6,
+            'FORTE_EXPRESS_33_6' => 6,
+            'FORTE_EXPRESS_0_12' => 12,
+            'FORTE_EXPRESS_33_12' => 12,
+            'FORTE_EXPRESS_0_24' => 24,
+            'FORTE_EXPRESS_33_24' => 24,
+            'FORTE_EXPRESS_35_36' => 36,
+            'FORTE_EXPRESS_35_48' => 48,
+        ];
+
+        return $periods[$data['pay_types_code']] ?? '';
     }
 }
