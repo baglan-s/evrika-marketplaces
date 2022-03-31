@@ -31,19 +31,21 @@ return [
     ],
 
     'creatio' => [
-        'login' => env('CREATIO_LOGIN'),
-        'password' => env('CREATIO_PASSWORD'),
-        'auth_link' => env('CREATIO_AUTH_LINK'),
-        'order_link' => env('CREATIO_ORDER_LINK'),
-        'domain' => env('CREATIO_DOMAIN'),
-    ],
-
-    'creatio_test' => [
-        'login' => env('CREATIO_TEST_LOGIN'),
-        'password' => env('CREATIO_TEST_PASSWORD'),
-        'auth_link' => env('CREATIO_TEST_AUTH_LINK'),
-        'order_link' => env('CREATIO_TEST_ORDER_LINK'),
-        'domain' => env('CREATIO_TEST_DOMAIN'),
+        'production' => [
+            'login' => env('CREATIO_LOGIN'),
+            'password' => env('CREATIO_PASSWORD'),
+            'auth_link' => env('CREATIO_AUTH_LINK'),
+            'order_link' => env('CREATIO_ORDER_LINK'),
+            'domain' => env('CREATIO_DOMAIN'),
+        ],
+        
+        'test' => [
+            'login' => env('CREATIO_TEST_LOGIN'),
+            'password' => env('CREATIO_TEST_PASSWORD'),
+            'auth_link' => env('CREATIO_TEST_AUTH_LINK'),
+            'order_link' => env('CREATIO_TEST_ORDER_LINK'),
+            'domain' => env('CREATIO_TEST_DOMAIN'),
+        ]
     ],
 
 ];

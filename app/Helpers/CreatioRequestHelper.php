@@ -16,7 +16,7 @@ class CreatioRequestHelper
 
     public function __construct()
     {
-        $this->config = config('services.creatio_test');
+        $this->config = env('DEV_MODE') ? config('services.creatio')['test'] : config('services.creatio')['production'];
         $this->setHeaders(['Content-Type' => 'application/json']);
     }
 
