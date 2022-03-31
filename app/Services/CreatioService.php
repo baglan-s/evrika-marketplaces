@@ -63,8 +63,6 @@ class CreatioService
         try {
             $prepared_data = $this->data_helper->processDataForCreatio($data);
 
-            dd($prepared_data);
-
             $response = Http::withHeaders($this->request_helper->getHeaders())
                 ->withCookies($this->request_helper->getCookies(), $this->request_helper->getConfig()['domain'])
                 ->post($this->request_helper->getConfig()['order_link'], $prepared_data);
